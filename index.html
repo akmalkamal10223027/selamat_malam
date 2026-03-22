@@ -1,0 +1,1023 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta name="description" content="Selamat malam untukmu, sayang 💕" />
+    <meta name="theme-color" content="#1a1a2e" />
+    <title>🌙 Good Night Sayang 💤</title>
+
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <style>
+      /* ========== 🌙 THEME MALAM ========== */
+      :root {
+        --night-bg: linear-gradient(
+          135deg,
+          #0f0c29 0%,
+          #302b63 50%,
+          #24243e 100%
+        );
+        --card-bg: rgba(255, 255, 255, 0.12);
+        --card-border: rgba(255, 255, 255, 0.2);
+        --text-primary: #ffffff;
+        --text-secondary: rgba(255, 255, 255, 0.85);
+        --accent-pink: #ff6b9d;
+        --accent-purple: #a29bfe;
+        --accent-gold: #fdcb6e;
+        --star-color: #fff9c4;
+        --moon-glow: rgba(255, 255, 255, 0.3);
+        --shadow-soft: 0 10px 40px rgba(0, 0, 0, 0.4);
+        --radius: 24px;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      body {
+        font-family: "Nunito", sans-serif;
+        background: var(--night-bg);
+        background-size: 400% 400%;
+        animation: nightGradient 20s ease infinite;
+        color: var(--text-primary);
+        min-height: 100vh;
+        overflow-x: hidden;
+        position: relative;
+      }
+
+      @keyframes nightGradient {
+        0%,
+        100% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+      }
+
+      /* ========== 🌟 STAR BACKGROUND ========== */
+      .stars {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+      }
+      .star {
+        position: absolute;
+        width: 3px;
+        height: 3px;
+        background: var(--star-color);
+        border-radius: 50%;
+        animation: twinkle var(--duration, 3s) ease-in-out infinite
+          var(--delay, 0s);
+        box-shadow: 0 0 10px var(--star-color);
+      }
+      @keyframes twinkle {
+        0%,
+        100% {
+          opacity: 0.3;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1.2);
+        }
+      }
+
+      /* ========== 🌙 MOON ========== */
+      .moon {
+        position: fixed;
+        top: 8%;
+        right: 10%;
+        width: 70px;
+        height: 70px;
+        background: radial-gradient(circle at 30% 30%, #fff9c4, #ffe082);
+        border-radius: 50%;
+        box-shadow:
+          0 0 30px var(--moon-glow),
+          0 0 60px var(--moon-glow),
+          inset -15px -5px 20px rgba(0, 0, 0, 0.1);
+        z-index: 2;
+        animation: floatMoon 6s ease-in-out infinite;
+      }
+      .moon::after {
+        content: "";
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background: rgba(0, 0, 0, 0.08);
+        border-radius: 50%;
+        top: 20px;
+        left: 15px;
+        box-shadow:
+          25px 10px 0 rgba(0, 0, 0, 0.08),
+          -10px 25px 0 rgba(0, 0, 0, 0.05);
+      }
+      @keyframes floatMoon {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-15px);
+        }
+      }
+
+      /* ========== 💫 FIREFLIES ========== */
+      .firefly {
+        position: fixed;
+        width: 6px;
+        height: 6px;
+        background: #fff9c4;
+        border-radius: 50%;
+        box-shadow:
+          0 0 15px #fff9c4,
+          0 0 30px #ff6b9d;
+        animation: fly var(--fly-duration, 8s) ease-in-out infinite
+          var(--fly-delay, 0s);
+        z-index: 2;
+        opacity: 0;
+      }
+      @keyframes fly {
+        0%,
+        100% {
+          opacity: 0;
+          transform: translate(0, 0) scale(0.8);
+        }
+        10%,
+        90% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.8;
+          transform: translate(var(--tx, 50px), var(--ty, -100px)) scale(1);
+        }
+      }
+
+      /* ========== 📦 CARD STYLES ========== */
+      .container {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        position: relative;
+        z-index: 10;
+      }
+
+      .card {
+        background: var(--card-bg);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-radius: var(--radius);
+        padding: 2.5rem 2rem;
+        width: 100%;
+        max-width: 480px;
+        text-align: center;
+        border: 1px solid var(--card-border);
+        box-shadow: var(--shadow-soft);
+        animation: cardFloat 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .card::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(
+          circle,
+          rgba(255, 255, 255, 0.1) 0%,
+          transparent 70%
+        );
+        animation: shimmer 8s linear infinite;
+        pointer-events: none;
+      }
+
+      @keyframes cardFloat {
+        from {
+          opacity: 0;
+          transform: translateY(30px) scale(0.95);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+
+      @keyframes shimmer {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* 🖼️ Photo Frame */
+      .photo-frame {
+        width: 140px;
+        height: 140px;
+        margin: 0 auto 1.5rem;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 4px solid rgba(255, 255, 255, 0.3);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        animation: pulse 3s ease-in-out infinite;
+        background: rgba(255, 255, 255, 0.1);
+        position: relative;
+      }
+
+      .photo-frame img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .photo-frame::after {
+        content: "💤";
+        position: absolute;
+        bottom: 5px;
+        right: 10px;
+        font-size: 1.5rem;
+        animation: bounce 2s ease infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+        50% {
+          box-shadow: 0 8px 35px rgba(255, 107, 157, 0.5);
+        }
+      }
+
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-5px);
+        }
+      }
+
+      /* ✍️ Typography */
+      h1 {
+        font-family: "Dancing Script", cursive;
+        font-size: 2.8rem;
+        margin-bottom: 0.8rem;
+        background: linear-gradient(
+          135deg,
+          #fff,
+          var(--accent-pink),
+          var(--accent-purple)
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: textGlow 3s ease-in-out infinite;
+      }
+
+      @keyframes textGlow {
+        0%,
+        100% {
+          filter: drop-shadow(0 0 5px rgba(255, 107, 157, 0.5));
+        }
+        50% {
+          filter: drop-shadow(0 0 15px rgba(162, 155, 254, 0.8));
+        }
+      }
+
+      .subtitle {
+        color: var(--text-secondary);
+        font-size: 1.1rem;
+        margin-bottom: 1.5rem;
+        line-height: 1.5;
+      }
+
+      .message {
+        color: var(--text-secondary);
+        line-height: 1.8;
+        margin: 1.5rem 0;
+        font-size: 1.05rem;
+        text-align: center;
+      }
+
+      .highlight {
+        color: var(--accent-pink);
+        font-weight: 700;
+        font-family: "Dancing Script", cursive;
+        font-size: 1.3rem;
+      }
+
+      .quote {
+        font-style: italic;
+        color: var(--accent-gold);
+        margin: 1rem 0;
+        padding: 10px 15px;
+        background: rgba(253, 203, 110, 0.1);
+        border-radius: 12px;
+        border-left: 3px solid var(--accent-gold);
+      }
+
+      /* 🔘 Buttons */
+      .btn {
+        background: linear-gradient(
+          135deg,
+          var(--accent-pink),
+          var(--accent-purple)
+        );
+        color: white;
+        border: none;
+        padding: 14px 32px;
+        border-radius: 50px;
+        font-family: "Fredoka", sans-serif;
+        font-weight: 600;
+        font-size: 1rem;
+        cursor: pointer;
+        box-shadow: 0 5px 20px rgba(255, 107, 157, 0.4);
+        transition: all 0.3s ease;
+        width: 100%;
+        margin: 8px 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        text-decoration: none;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.3),
+          transparent
+        );
+        transition: left 0.5s;
+      }
+
+      .btn:hover::before {
+        left: 100%;
+      }
+      .btn:active {
+        transform: scale(0.98);
+      }
+
+      .btn-secondary {
+        background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+        box-shadow: 0 5px 20px rgba(108, 92, 231, 0.4);
+      }
+
+      .btn-glow {
+        background: linear-gradient(135deg, var(--accent-gold), #f39c12);
+        box-shadow: 0 5px 20px rgba(243, 156, 18, 0.4);
+        animation: btnPulse 2s ease infinite;
+      }
+
+      @keyframes btnPulse {
+        0%,
+        100% {
+          box-shadow: 0 5px 20px rgba(243, 156, 18, 0.4);
+        }
+        50% {
+          box-shadow: 0 5px 30px rgba(243, 156, 18, 0.8);
+        }
+      }
+
+      /* 💤 Sleep Animation */
+      .sleep-indicator {
+        display: flex;
+        justify-content: center;
+        gap: 5px;
+        margin: 1.5rem 0;
+      }
+      .zzz {
+        font-size: 1.5rem;
+        animation: zFloat 2s ease-in-out infinite;
+        opacity: 0;
+      }
+      .zzz:nth-child(1) {
+        animation-delay: 0s;
+      }
+      .zzz:nth-child(2) {
+        animation-delay: 0.3s;
+      }
+      .zzz:nth-child(3) {
+        animation-delay: 0.6s;
+      }
+
+      @keyframes zFloat {
+        0% {
+          opacity: 0;
+          transform: translateY(0) scale(0.8);
+        }
+        20% {
+          opacity: 1;
+        }
+        80% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+          transform: translateY(-30px) scale(1.2);
+        }
+      }
+
+      /* 💌 Heart Rain */
+      .heart {
+        position: fixed;
+        font-size: 1.2rem;
+        animation: heartFall linear forwards;
+        z-index: 5;
+        pointer-events: none;
+        opacity: 0;
+      }
+      @keyframes heartFall {
+        0% {
+          opacity: 0;
+          transform: translateY(-20px) rotate(0deg) scale(0.5);
+        }
+        10% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+          transform: translateY(100vh) rotate(720deg) scale(1);
+        }
+      }
+
+      /* 🌙 Loading */
+      #loader {
+        position: fixed;
+        inset: 0;
+        background: #0f0c29;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        transition: opacity 0.6s;
+      }
+      .moon-loader {
+        width: 60px;
+        height: 60px;
+        background: radial-gradient(circle at 30% 30%, #fff9c4, #ffe082);
+        border-radius: 50%;
+        margin-bottom: 20px;
+        animation: spinMoon 2s linear infinite;
+        box-shadow: 0 0 30px rgba(255, 249, 196, 0.5);
+      }
+      @keyframes spinMoon {
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* 💕 Music Button */
+      .music-btn {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        z-index: 100;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        cursor: pointer;
+        font-size: 1.1rem;
+        transition: all 0.3s;
+      }
+      .music-btn:hover {
+        background: rgba(255, 255, 255, 0.25);
+        transform: scale(1.1);
+      }
+
+      /* 🌙 Modal */
+      .modal {
+        position: fixed;
+        inset: 0;
+        background: rgba(15, 12, 41, 0.9);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 200;
+        opacity: 0;
+        visibility: hidden;
+        transition: 0.4s;
+        padding: 20px;
+      }
+      .modal.active {
+        opacity: 1;
+        visibility: visible;
+      }
+      .modal-content {
+        background: var(--card-bg);
+        backdrop-filter: blur(20px);
+        padding: 2rem;
+        border-radius: var(--radius);
+        width: 100%;
+        max-width: 400px;
+        text-align: center;
+        border: 1px solid var(--card-border);
+        animation: modalPop 0.4s ease;
+      }
+      @keyframes modalPop {
+        from {
+          opacity: 0;
+          transform: scale(0.9) translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1) translateY(0);
+        }
+      }
+      .modal input {
+        width: 100%;
+        padding: 14px;
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-radius: 14px;
+        margin: 15px 0;
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        font-family: inherit;
+        font-size: 1rem;
+        text-align: center;
+      }
+      .modal input::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+      }
+      .modal input:focus {
+        outline: none;
+        border-color: var(--accent-pink);
+        box-shadow: 0 0 15px rgba(255, 107, 157, 0.3);
+      }
+
+      /* 📱 Responsive */
+      @media (max-width: 480px) {
+        h1 {
+          font-size: 2.3rem;
+        }
+        .card {
+          padding: 2rem 1.5rem;
+        }
+        .photo-frame {
+          width: 120px;
+          height: 120px;
+        }
+        .moon {
+          width: 55px;
+          height: 55px;
+          top: 5%;
+          right: 5%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 🎵 Soft Lullaby Music -->
+    <audio id="bgMusic" loop>
+      <source src="./asset/musik.mp3" type="audio/mp3" />
+      <source src="./asset/musik.mp3" type="audio/mp3" />
+    </audio>
+
+    <!-- 🌙 Loading Screen -->
+    <div id="loader">
+      <div class="moon-loader"></div>
+      <h2
+        style="font-family: &quot;Fredoka&quot;; color: white; margin-top: 10px"
+      >
+        Menyiapkan Mimpi Indah... 🌙
+      </h2>
+    </div>
+
+    <!-- 🌟 Stars Background -->
+    <div class="stars" id="stars"></div>
+
+    <!-- 🌙 Moon -->
+    <div class="moon"></div>
+
+    <!-- 💫 Fireflies Container -->
+    <div id="fireflies"></div>
+
+    <!-- 🎵 Music Toggle -->
+    <button
+      class="music-btn"
+      id="musicBtn"
+      onclick="toggleMusic()"
+      title="Putar Musik"
+    >
+      <i class="fas fa-music"></i>
+    </button>
+
+    <!-- 💤 Main Content -->
+    <main class="container">
+      <div class="card">
+        <!-- 🖼️ Photo -->
+        <div class="photo-frame">
+          <!-- 📸 GANTI FOTO KALIAN -->
+          <img src="./asset/kita.jpeg" alt="Kita" />
+        </div>
+
+        <!-- 🌙 Title -->
+        <h1 id="greetingTitle">Selamat Malam, Sayang 🌙</h1>
+        <p class="subtitle">
+          Semoga malam ini membawamu ke mimpi yang indah... ✨
+        </p>
+
+        <!-- 💬 Message -->
+        <div class="message" id="messageContent">
+          <p>
+            Hari ini mungkin sudah berakhir,<br />
+            tapi cintaku padamu tidak pernah tidur. 💕
+          </p>
+          <div class="quote">
+            "Di antara miliaran bintang di langit,<br />
+            kamulah yang paling terang di hatiku." 🌟
+          </div>
+          <p>
+            Istirahatlah dengan tenang, ya.<br />
+            <span class="highlight">Aku selalu di sini, memikirkanmu.</span>
+          </p>
+        </div>
+
+        <!-- 💤 Sleep Animation -->
+        <div class="sleep-indicator">
+          <span class="zzz">💤</span>
+          <span class="zzz">💤</span>
+          <span class="zzz">💤</span>
+        </div>
+
+        <!-- 🔘 Buttons -->
+        <button class="btn" onclick="sendHeart()">
+          <i class="fas fa-heart"></i> Kirim Peluk Virtual
+        </button>
+        <button class="btn btn-secondary" onclick="showWishes()">
+          <i class="fas fa-sparkles"></i> Lihat Doa Malam Ini
+        </button>
+        <a
+          href="https://wa.me/6281234567890?text=Good%20night%20sayang!%20Love%20you%20💕🌙"
+          class="btn btn-glow"
+          target="_blank"
+        >
+          <i class="fab fa-whatsapp"></i> Balas di WhatsApp
+        </a>
+      </div>
+    </main>
+
+    <!-- 💕 Personalization Modal -->
+    <div class="modal" id="nameModal">
+      <div class="modal-content">
+        <h2
+          style="
+            font-family: &quot;Dancing Script&quot;;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+          "
+        >
+          Untuk Siapa Malam Ini? 💕
+        </h2>
+        <p style="color: var(--text-secondary); margin-bottom: 1rem">
+          Sebut nama sayangmu...
+        </p>
+        <input
+          type="text"
+          id="partnerName"
+          placeholder="Contoh: Cintaku, Baby, Love..."
+          maxlength="25"
+          autocomplete="off"
+        />
+        <button class="btn" onclick="saveName()">
+          <i class="fas fa-moon"></i> Lanjut ke Mimpi Indah
+        </button>
+      </div>
+    </div>
+
+    <!-- 🌟 Wishes Modal -->
+    <div class="modal" id="wishesModal">
+      <div class="modal-content">
+        <h2
+          style="
+            font-family: &quot;Dancing Script&quot;;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+          "
+        >
+          🌙 Doa Malam Ini
+        </h2>
+        <p
+          id="wishesText"
+          style="
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+          "
+        >
+          ✨ Semoga tidurmu nyenyak dan pulas.<br />
+          ✨ Semoga mimpimu penuh kebahagiaan.<br />
+          ✨ Semoga besok hari yang lebih indah.<br />
+          ✨ Semoga kita selalu dekat, walau jarak memisah.<br />
+          <br />
+          <span style="color: var(--accent-pink); font-weight: 600">
+            Good night, my love. See you in my dreams. 💫
+          </span>
+        </p>
+        <button class="btn" onclick="closeWishes()">
+          <i class="fas fa-check"></i> Aamiin 💕
+        </button>
+      </div>
+    </div>
+
+    <script>
+      /* ========== 🌙 GOOD NIGHT LOGIC ========== */
+      const music = document.getElementById("bgMusic");
+      const musicBtn = document.getElementById("musicBtn");
+      const loader = document.getElementById("loader");
+      const nameModal = document.getElementById("nameModal");
+      const wishesModal = document.getElementById("wishesModal");
+      const starsContainer = document.getElementById("stars");
+      const firefliesContainer = document.getElementById("fireflies");
+
+      let isPlaying = false;
+      let partnerName = "Sayang";
+      let heartsSent = 0;
+
+      // 🌟 Create Stars Background
+      function createStars() {
+        const starCount = window.innerWidth > 768 ? 150 : 80;
+        for (let i = 0; i < starCount; i++) {
+          const star = document.createElement("div");
+          star.className = "star";
+          star.style.left = Math.random() * 100 + "%";
+          star.style.top = Math.random() * 100 + "%";
+          star.style.setProperty("--duration", Math.random() * 3 + 2 + "s");
+          star.style.setProperty("--delay", Math.random() * 2 + "s");
+          star.style.width = star.style.height = Math.random() * 2 + 1 + "px";
+          starsContainer.appendChild(star);
+        }
+      }
+
+      // 💫 Create Fireflies
+      function createFireflies() {
+        const count = 8;
+        for (let i = 0; i < count; i++) {
+          setTimeout(() => {
+            const firefly = document.createElement("div");
+            firefly.className = "firefly";
+            firefly.style.left = Math.random() * 100 + "%";
+            firefly.style.top = Math.random() * 100 + "%";
+            firefly.style.setProperty(
+              "--tx",
+              (Math.random() - 0.5) * 100 + "px",
+            );
+            firefly.style.setProperty(
+              "--ty",
+              (Math.random() - 0.5) * 150 + "px",
+            );
+            firefly.style.setProperty(
+              "--fly-duration",
+              Math.random() * 4 + 6 + "s",
+            );
+            firefly.style.setProperty("--fly-delay", Math.random() * 3 + "s");
+            firefliesContainer.appendChild(firefly);
+
+            // Remove & recreate for continuous effect
+            setTimeout(() => firefly.remove(), 15000);
+          }, i * 800);
+        }
+        // Loop fireflies
+        setInterval(createFireflies, 8000);
+      }
+
+      // 💕 Heart Rain Effect
+      function sendHeart() {
+        heartsSent++;
+        createHeartRain(15);
+
+        // Show cute message
+        const messages = [
+          "Peluk virtual terkirim! 🤗💕",
+          "Semoga kamu merasakannya... 🥰",
+          "Aku juga kangen peluk kamu! 💞",
+          "Tidur yang nyenyak ya, sayang 🌙",
+        ];
+
+        const msg = document.createElement("div");
+        msg.style.cssText = `
+          position: fixed;
+          top: 20%;
+          left: 50%;
+          transform: translateX(-50%);
+          background: rgba(255,107,157,0.9);
+          color: white;
+          padding: 12px 25px;
+          border-radius: 50px;
+          font-weight: 600;
+          z-index: 300;
+          animation: msgFloat 3s ease forwards;
+          box-shadow: 0 5px 20px rgba(255,107,157,0.5);
+        `;
+        msg.textContent =
+          messages[Math.min(heartsSent - 1, messages.length - 1)];
+        document.body.appendChild(msg);
+        setTimeout(() => msg.remove(), 3000);
+      }
+
+      function createHeartRain(count) {
+        for (let i = 0; i < count; i++) {
+          setTimeout(() => {
+            const heart = document.createElement("div");
+            heart.className = "heart";
+            heart.innerHTML = ["💕", "💖", "💗", "💓", "💞"][
+              Math.floor(Math.random() * 5)
+            ];
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = Math.random() * 2 + 3 + "s";
+            heart.style.animationDelay = Math.random() * 0.5 + "s";
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 5000);
+          }, i * 100);
+        }
+      }
+
+      // Add msgFloat animation
+      const style = document.createElement("style");
+      style.textContent = `
+        @keyframes msgFloat {
+          0% { opacity: 0; transform: translateX(-50%) translateY(20px); }
+          20% { opacity: 1; }
+          80% { opacity: 1; }
+          100% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+        }
+      `;
+      document.head.appendChild(style);
+
+      // 🌟 Show Wishes Modal
+      function showWishes() {
+        wishesModal.classList.add("active");
+        // Little confetti effect
+        for (let i = 0; i < 20; i++) {
+          setTimeout(() => createConfetti(), i * 50);
+        }
+      }
+
+      function closeWishes() {
+        wishesModal.classList.remove("active");
+      }
+
+      // 🎵 Music Toggle
+      function toggleMusic() {
+        if (isPlaying) {
+          music.pause();
+          musicBtn.innerHTML = '<i class="fas fa-music"></i>';
+        } else {
+          music.volume = 0.4; // Soft volume for night
+          music.play().catch(() => {});
+          musicBtn.innerHTML = '<i class="fas fa-pause"></i>';
+        }
+        isPlaying = !isPlaying;
+      }
+
+      // 💕 Name Modal
+      function openNameModal() {
+        nameModal.classList.add("active");
+        // Try to play soft music on interaction
+        if (!isPlaying) {
+          music.volume = 0.3;
+          music.play().catch(() => {});
+          isPlaying = true;
+          musicBtn.innerHTML = '<i class="fas fa-pause"></i>';
+        }
+      }
+
+      function saveName() {
+        const input = document.getElementById("partnerName");
+        const name = input.value.trim();
+        if (name) partnerName = name;
+
+        // Update greeting
+        document.getElementById("greetingTitle").innerHTML =
+          `Selamat Malam, ${partnerName} 🌙`;
+
+        // Update message with personal touch
+        document.getElementById("messageContent").innerHTML = `
+          <p>
+            Hari ini mungkin sudah berakhir,<br />
+            tapi cintaku padamu tidak pernah tidur. 💕
+          </p>
+          <div class="quote">
+            "Di antara miliaran bintang di langit,<br />
+            kamulah yang paling terang di hatiku, <span style="color:var(--accent-pink)">${partnerName}</span>." 🌟
+          </div>
+          <p>
+            Istirahatlah dengan tenang, ya.<br />
+            <span class="highlight">Aku selalu di sini, memikirkanmu.</span>
+          </p>
+        `;
+
+        nameModal.classList.remove("active");
+
+        // Celebrate with hearts
+        setTimeout(() => createHeartRain(25), 300);
+      }
+
+      // ✨ Confetti for wishes
+      function createConfetti() {
+        const confetti = document.createElement("div");
+        confetti.style.cssText = `
+          position: fixed;
+          width: 8px;
+          height: 8px;
+          left: ${Math.random() * 100}vw;
+          top: -10px;
+          background: ${["#ff6b9d", "#a29bfe", "#fdcb6e", "#fff"][Math.floor(Math.random() * 4)]};
+          border-radius: ${Math.random() > 0.5 ? "50%" : "4px"};
+          animation: fall ${Math.random() * 2 + 2}s linear forwards;
+          z-index: 50;
+          opacity: 0.9;
+        `;
+        document.body.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 4000);
+      }
+
+      // Add fall animation
+      const fallStyle = document.createElement("style");
+      fallStyle.textContent = `
+        @keyframes fall {
+          to { 
+            transform: translateY(100vh) rotate(${Math.random() * 720}deg);
+            opacity: 0;
+          }
+        }
+      `;
+      document.head.appendChild(fallStyle);
+
+      // 🌙 Init on Load
+      window.addEventListener("load", () => {
+        setTimeout(() => {
+          loader.style.opacity = "0";
+          setTimeout(() => {
+            loader.remove();
+            createStars();
+            createFireflies();
+            // Show name modal after short delay
+            setTimeout(openNameModal, 800);
+          }, 600);
+        }, 1200);
+      });
+
+      // 🌙 Gentle scroll hint (optional)
+      document.addEventListener(
+        "touchmove",
+        (e) => {
+          // Prevent pull-to-refresh on mobile for better experience
+          if (window.scrollY <= 0) e.preventDefault();
+        },
+        { passive: false },
+      );
+
+      // 💤 Auto heart rain occasionally
+      setInterval(() => {
+        if (Math.random() > 0.7) createHeartRain(5);
+      }, 8000);
+    </script>
+  </body>
+</html>
