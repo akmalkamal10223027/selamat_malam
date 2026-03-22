@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta
       name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+      content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes"
     />
     <meta name="description" content="Selamat malam untukmu, sayang 💕" />
     <meta name="theme-color" content="#1a1a2e" />
@@ -44,11 +44,33 @@
         --radius: 24px;
       }
 
+      /* ========== 📱 MOBILE RESET & BASE ========== */
       * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
         -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      /* Allow text selection on inputs and messages */
+      input,
+      textarea,
+      .message,
+      .quote,
+      .subtitle {
+        user-select: text;
+        -webkit-user-select: text;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch; /* Smooth scroll on iOS */
       }
 
       body {
@@ -58,8 +80,13 @@
         animation: nightGradient 20s ease infinite;
         color: var(--text-primary);
         min-height: 100vh;
+        width: 100%;
         overflow-x: hidden;
+        overflow-y: auto; /* ✅ Enable vertical scroll */
         position: relative;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
       }
 
       @keyframes nightGradient {
@@ -81,6 +108,7 @@
         height: 100%;
         pointer-events: none;
         z-index: 1;
+        will-change: transform;
       }
       .star {
         position: absolute;
@@ -119,6 +147,7 @@
           inset -15px -5px 20px rgba(0, 0, 0, 0.1);
         z-index: 2;
         animation: floatMoon 6s ease-in-out infinite;
+        pointer-events: none;
       }
       .moon::after {
         content: "";
@@ -157,6 +186,7 @@
           var(--fly-delay, 0s);
         z-index: 2;
         opacity: 0;
+        pointer-events: none;
       }
       @keyframes fly {
         0%,
@@ -174,13 +204,14 @@
         }
       }
 
-      /* ========== 📦 CARD STYLES ========== */
+      /* ========== 📦 CONTAINER & CARD - MOBILE OPTIMIZED ========== */
       .container {
         min-height: 100vh;
+        width: 100%;
         display: flex;
-        align-items: center;
+        align-items: flex-start; /* ✅ Changed from center to flex-start for scroll */
         justify-content: center;
-        padding: 20px;
+        padding: 80px 20px 40px; /* ✅ Top padding for moon/music btn */
         position: relative;
         z-index: 10;
       }
@@ -190,7 +221,7 @@
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
         border-radius: var(--radius);
-        padding: 2.5rem 2rem;
+        padding: 2rem 1.5rem;
         width: 100%;
         max-width: 480px;
         text-align: center;
@@ -198,7 +229,8 @@
         box-shadow: var(--shadow-soft);
         animation: cardFloat 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         position: relative;
-        overflow: hidden;
+        overflow: visible;
+        margin-bottom: 20px; /* ✅ Space for bottom scroll */
       }
 
       .card::before {
@@ -237,11 +269,11 @@
         }
       }
 
-      /* 🖼️ Photo Frame */
+      /* 🖼️ Photo Frame - Mobile Friendly */
       .photo-frame {
-        width: 140px;
-        height: 140px;
-        margin: 0 auto 1.5rem;
+        width: 130px;
+        height: 130px;
+        margin: 0 auto 1.2rem;
         border-radius: 50%;
         overflow: hidden;
         border: 4px solid rgba(255, 255, 255, 0.3);
@@ -249,12 +281,14 @@
         animation: pulse 3s ease-in-out infinite;
         background: rgba(255, 255, 255, 0.1);
         position: relative;
+        flex-shrink: 0;
       }
 
       .photo-frame img {
         width: 100%;
         height: 100%;
         object-fit: cover;
+        display: block;
       }
 
       .photo-frame::after {
@@ -262,8 +296,9 @@
         position: absolute;
         bottom: 5px;
         right: 10px;
-        font-size: 1.5rem;
+        font-size: 1.3rem;
         animation: bounce 2s ease infinite;
+        pointer-events: none;
       }
 
       @keyframes pulse {
@@ -286,10 +321,10 @@
         }
       }
 
-      /* ✍️ Typography */
+      /* ✍️ Typography - Readable on Mobile */
       h1 {
         font-family: "Dancing Script", cursive;
-        font-size: 2.8rem;
+        font-size: clamp(2rem, 6vw, 2.8rem); /* ✅ Responsive font */
         margin-bottom: 0.8rem;
         background: linear-gradient(
           135deg,
@@ -301,6 +336,8 @@
         -webkit-text-fill-color: transparent;
         background-clip: text;
         animation: textGlow 3s ease-in-out infinite;
+        line-height: 1.3;
+        word-wrap: break-word;
       }
 
       @keyframes textGlow {
@@ -315,37 +352,46 @@
 
       .subtitle {
         color: var(--text-secondary);
-        font-size: 1.1rem;
-        margin-bottom: 1.5rem;
+        font-size: clamp(0.95rem, 4vw, 1.1rem);
+        margin-bottom: 1.2rem;
         line-height: 1.5;
+        padding: 0 5px;
       }
 
       .message {
         color: var(--text-secondary);
         line-height: 1.8;
-        margin: 1.5rem 0;
-        font-size: 1.05rem;
+        margin: 1.2rem 0;
+        font-size: clamp(0.95rem, 4vw, 1.05rem);
         text-align: center;
+        padding: 0 5px;
+      }
+
+      .message p {
+        margin: 0.8rem 0;
       }
 
       .highlight {
         color: var(--accent-pink);
         font-weight: 700;
         font-family: "Dancing Script", cursive;
-        font-size: 1.3rem;
+        font-size: clamp(1.1rem, 4.5vw, 1.3rem);
+        display: inline-block;
       }
 
       .quote {
         font-style: italic;
         color: var(--accent-gold);
         margin: 1rem 0;
-        padding: 10px 15px;
+        padding: 12px 15px;
         background: rgba(253, 203, 110, 0.1);
         border-radius: 12px;
         border-left: 3px solid var(--accent-gold);
+        font-size: clamp(0.9rem, 4vw, 1rem);
+        line-height: 1.6;
       }
 
-      /* 🔘 Buttons */
+      /* 🔘 Buttons - Touch Friendly */
       .btn {
         background: linear-gradient(
           135deg,
@@ -354,23 +400,26 @@
         );
         color: white;
         border: none;
-        padding: 14px 32px;
+        padding: 14px 24px;
         border-radius: 50px;
         font-family: "Fredoka", sans-serif;
         font-weight: 600;
-        font-size: 1rem;
+        font-size: clamp(0.95rem, 4vw, 1rem);
         cursor: pointer;
         box-shadow: 0 5px 20px rgba(255, 107, 157, 0.4);
-        transition: all 0.3s ease;
+        transition: all 0.2s ease;
         width: 100%;
-        margin: 8px 0;
+        max-width: 350px;
+        margin: 8px auto;
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 10px;
+        gap: 8px;
         text-decoration: none;
         position: relative;
         overflow: hidden;
+        min-height: 50px; /* ✅ Easy tap target */
+        touch-action: manipulation;
       }
 
       .btn::before {
@@ -394,6 +443,10 @@
       }
       .btn:active {
         transform: scale(0.98);
+      }
+      .btn:focus {
+        outline: 2px solid var(--accent-pink);
+        outline-offset: 2px;
       }
 
       .btn-secondary {
@@ -421,11 +474,12 @@
       .sleep-indicator {
         display: flex;
         justify-content: center;
-        gap: 5px;
-        margin: 1.5rem 0;
+        gap: 8px;
+        margin: 1.2rem 0;
+        padding: 5px;
       }
       .zzz {
-        font-size: 1.5rem;
+        font-size: clamp(1.2rem, 5vw, 1.5rem);
         animation: zFloat 2s ease-in-out infinite;
         opacity: 0;
       }
@@ -459,7 +513,7 @@
       /* 💌 Heart Rain */
       .heart {
         position: fixed;
-        font-size: 1.2rem;
+        font-size: clamp(1rem, 4vw, 1.2rem);
         animation: heartFall linear forwards;
         z-index: 5;
         pointer-events: none;
@@ -490,6 +544,7 @@
         justify-content: center;
         z-index: 9999;
         transition: opacity 0.6s;
+        padding: 20px;
       }
       .moon-loader {
         width: 60px;
@@ -499,6 +554,7 @@
         margin-bottom: 20px;
         animation: spinMoon 2s linear infinite;
         box-shadow: 0 0 30px rgba(255, 249, 196, 0.5);
+        flex-shrink: 0;
       }
       @keyframes spinMoon {
         100% {
@@ -506,13 +562,13 @@
         }
       }
 
-      /* 💕 Music Button */
+      /* 💕 Music Button - Easy to Tap */
       .music-btn {
         position: fixed;
-        top: 20px;
-        right: 20px;
-        width: 45px;
-        height: 45px;
+        top: 15px;
+        right: 15px;
+        width: 48px;
+        height: 48px;
         border-radius: 50%;
         background: rgba(255, 255, 255, 0.15);
         backdrop-filter: blur(10px);
@@ -524,18 +580,24 @@
         border: 1px solid rgba(255, 255, 255, 0.3);
         cursor: pointer;
         font-size: 1.1rem;
-        transition: all 0.3s;
+        transition: all 0.2s;
+        min-width: 48px;
+        min-height: 48px;
+        touch-action: manipulation;
       }
       .music-btn:hover {
         background: rgba(255, 255, 255, 0.25);
-        transform: scale(1.1);
+        transform: scale(1.05);
+      }
+      .music-btn:active {
+        transform: scale(0.95);
       }
 
-      /* 🌙 Modal */
+      /* 🌙 Modal - Mobile Optimized */
       .modal {
         position: fixed;
         inset: 0;
-        background: rgba(15, 12, 41, 0.9);
+        background: rgba(15, 12, 41, 0.95);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -544,22 +606,28 @@
         visibility: hidden;
         transition: 0.4s;
         padding: 20px;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
       }
       .modal.active {
         opacity: 1;
         visibility: visible;
       }
+
       .modal-content {
         background: var(--card-bg);
         backdrop-filter: blur(20px);
-        padding: 2rem;
+        padding: 1.8rem 1.5rem;
         border-radius: var(--radius);
         width: 100%;
         max-width: 400px;
         text-align: center;
         border: 1px solid var(--card-border);
         animation: modalPop 0.4s ease;
+        max-height: 85vh;
+        overflow-y: auto;
       }
+
       @keyframes modalPop {
         from {
           opacity: 0;
@@ -570,6 +638,7 @@
           transform: scale(1) translateY(0);
         }
       }
+
       .modal input {
         width: 100%;
         padding: 14px;
@@ -581,6 +650,7 @@
         font-family: inherit;
         font-size: 1rem;
         text-align: center;
+        min-height: 50px;
       }
       .modal input::placeholder {
         color: rgba(255, 255, 255, 0.6);
@@ -591,52 +661,132 @@
         box-shadow: 0 0 15px rgba(255, 107, 157, 0.3);
       }
 
-      /* 📱 Responsive */
+      /* 📱 Scrollbar Styling (Optional) */
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 3px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: rgba(255, 255, 255, 0.5);
+      }
+
+      /* ========== 📱 RESPONSIVE BREAKPOINTS ========== */
       @media (max-width: 480px) {
+        body {
+          padding-bottom: env(safe-area-inset-bottom); /* iPhone X+ safe area */
+        }
+
+        .container {
+          padding: 70px 16px 30px;
+          align-items: flex-start;
+        }
+
+        .card {
+          padding: 1.8rem 1.2rem;
+          margin-bottom: 15px;
+        }
+
+        .photo-frame {
+          width: 110px;
+          height: 110px;
+          margin: 0 auto 1rem;
+        }
+
+        .moon {
+          width: 50px;
+          height: 50px;
+          top: 4%;
+          right: 4%;
+        }
+
+        .music-btn {
+          top: 12px;
+          right: 12px;
+          width: 44px;
+          height: 44px;
+          font-size: 1rem;
+        }
+
         h1 {
-          font-size: 2.3rem;
+          font-size: clamp(1.8rem, 7vw, 2.3rem);
+          margin-bottom: 0.6rem;
+        }
+
+        .btn {
+          padding: 13px 20px;
+          min-height: 48px;
+          font-size: clamp(0.9rem, 4.5vw, 1rem);
+        }
+
+        .quote {
+          padding: 10px 12px;
+          font-size: clamp(0.85rem, 4.5vw, 0.95rem);
+        }
+      }
+
+      /* Landscape mode adjustment */
+      @media (max-height: 500px) and (orientation: landscape) {
+        .container {
+          padding: 60px 20px 20px;
+          align-items: flex-start;
         }
         .card {
-          padding: 2rem 1.5rem;
-        }
-        .photo-frame {
-          width: 120px;
-          height: 120px;
+          padding: 1.5rem;
         }
         .moon {
-          width: 55px;
-          height: 55px;
           top: 5%;
           right: 5%;
+          width: 45px;
+          height: 45px;
+        }
+      }
+
+      /* Prevent zoom on input focus (iOS) */
+      @media screen and (-webkit-min-device-pixel-ratio: 0) {
+        input,
+        select,
+        textarea {
+          font-size: 16px !important;
         }
       }
     </style>
   </head>
   <body>
     <!-- 🎵 Soft Lullaby Music -->
-    <audio id="bgMusic" loop>
-      <source src="./asset/musik.mp3" type="audio/mp3" />
-      <source src="./asset/musik.mp3" type="audio/mp3" />
+    <audio id="bgMusic" loop preload="none">
+      <source src="./asset/musik.mp3" type="audio/mpeg" />
     </audio>
 
     <!-- 🌙 Loading Screen -->
     <div id="loader">
       <div class="moon-loader"></div>
       <h2
-        style="font-family: &quot;Fredoka&quot;; color: white; margin-top: 10px"
+        style="
+          font-family: &quot;Fredoka&quot;;
+          color: white;
+          margin-top: 10px;
+          font-size: 1.2rem;
+          text-align: center;
+        "
       >
         Menyiapkan Mimpi Indah... 🌙
       </h2>
     </div>
 
     <!-- 🌟 Stars Background -->
-    <div class="stars" id="stars"></div>
+    <div class="stars" id="stars" aria-hidden="true"></div>
 
     <!-- 🌙 Moon -->
-    <div class="moon"></div>
+    <div class="moon" aria-hidden="true"></div>
 
     <!-- 💫 Fireflies Container -->
-    <div id="fireflies"></div>
+    <div id="fireflies" aria-hidden="true"></div>
 
     <!-- 🎵 Music Toggle -->
     <button
@@ -644,18 +794,19 @@
       id="musicBtn"
       onclick="toggleMusic()"
       title="Putar Musik"
+      aria-label="Toggle musik latar"
     >
-      <i class="fas fa-music"></i>
+      <i class="fas fa-music" aria-hidden="true"></i>
     </button>
 
-    <!-- 💤 Main Content -->
+    <!-- 💤 Main Content - SCROLLABLE -->
     <main class="container">
-      <div class="card">
+      <article class="card">
         <!-- 🖼️ Photo -->
-        <div class="photo-frame">
+        <figure class="photo-frame">
           <!-- 📸 GANTI FOTO KALIAN -->
-          <img src="./asset/kita.jpeg" alt="Kita" />
-        </div>
+          <img src="./asset/kita.jpeg" alt="Foto kita berdua" loading="lazy" />
+        </figure>
 
         <!-- 🌙 Title -->
         <h1 id="greetingTitle">Selamat Malam, Sayang 🌙</h1>
@@ -680,33 +831,42 @@
         </div>
 
         <!-- 💤 Sleep Animation -->
-        <div class="sleep-indicator">
+        <div class="sleep-indicator" aria-hidden="true">
           <span class="zzz">💤</span>
           <span class="zzz">💤</span>
           <span class="zzz">💤</span>
         </div>
 
-        <!-- 🔘 Buttons -->
-        <button class="btn" onclick="sendHeart()">
-          <i class="fas fa-heart"></i> Kirim Peluk Virtual
+        <!-- 🔘 Buttons - Large Touch Targets -->
+        <button class="btn" onclick="sendHeart()" type="button">
+          <i class="fas fa-heart" aria-hidden="true"></i> Kirim Peluk Virtual
         </button>
-        <button class="btn btn-secondary" onclick="showWishes()">
-          <i class="fas fa-sparkles"></i> Lihat Doa Malam Ini
+        <button class="btn btn-secondary" onclick="showWishes()" type="button">
+          <i class="fas fa-sparkles" aria-hidden="true"></i> Lihat Doa Malam Ini
         </button>
         <a
-          href="https://wa.me/6281234567890?text=Good%20night%20sayang!%20Love%20you%20💕🌙"
+          href="https://wa.me/6282130938060?text=Good%20night%20sayang!%20Love%20you%20💕🌙"
           class="btn btn-glow"
           target="_blank"
+          rel="noopener noreferrer"
+          role="button"
         >
-          <i class="fab fa-whatsapp"></i> Balas di WhatsApp
+          <i class="fab fa-whatsapp" aria-hidden="true"></i> Balas di WhatsApp
         </a>
-      </div>
+      </article>
     </main>
 
     <!-- 💕 Personalization Modal -->
-    <div class="modal" id="nameModal">
+    <div
+      class="modal"
+      id="nameModal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modalTitle"
+    >
       <div class="modal-content">
         <h2
+          id="modalTitle"
           style="
             font-family: &quot;Dancing Script&quot;;
             font-size: 2rem;
@@ -724,17 +884,25 @@
           placeholder="Contoh: Cintaku, Baby, Love..."
           maxlength="25"
           autocomplete="off"
+          aria-label="Nama pasangan"
         />
-        <button class="btn" onclick="saveName()">
-          <i class="fas fa-moon"></i> Lanjut ke Mimpi Indah
+        <button class="btn" onclick="saveName()" type="button">
+          <i class="fas fa-moon" aria-hidden="true"></i> Lanjut ke Mimpi Indah
         </button>
       </div>
     </div>
 
     <!-- 🌟 Wishes Modal -->
-    <div class="modal" id="wishesModal">
+    <div
+      class="modal"
+      id="wishesModal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="wishesTitle"
+    >
       <div class="modal-content">
         <h2
+          id="wishesTitle"
           style="
             font-family: &quot;Dancing Script&quot;;
             font-size: 1.8rem;
@@ -760,14 +928,14 @@
             Good night, my love. See you in my dreams. 💫
           </span>
         </p>
-        <button class="btn" onclick="closeWishes()">
-          <i class="fas fa-check"></i> Aamiin 💕
+        <button class="btn" onclick="closeWishes()" type="button">
+          <i class="fas fa-check" aria-hidden="true"></i> Aamiin 💕
         </button>
       </div>
     </div>
 
     <script>
-      /* ========== 🌙 GOOD NIGHT LOGIC ========== */
+      /* ========== 🌙 GOOD NIGHT LOGIC - MOBILE OPTIMIZED ========== */
       const music = document.getElementById("bgMusic");
       const musicBtn = document.getElementById("musicBtn");
       const loader = document.getElementById("loader");
@@ -779,10 +947,16 @@
       let isPlaying = false;
       let partnerName = "Sayang";
       let heartsSent = 0;
+      let isMobile =
+        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+          navigator.userAgent,
+        );
 
-      // 🌟 Create Stars Background
+      // 🌟 Create Stars Background (Reduced for mobile performance)
       function createStars() {
-        const starCount = window.innerWidth > 768 ? 150 : 80;
+        const starCount = isMobile ? 50 : window.innerWidth > 768 ? 150 : 80;
+        const fragment = document.createDocumentFragment();
+
         for (let i = 0; i < starCount; i++) {
           const star = document.createElement("div");
           star.className = "star";
@@ -791,48 +965,45 @@
           star.style.setProperty("--duration", Math.random() * 3 + 2 + "s");
           star.style.setProperty("--delay", Math.random() * 2 + "s");
           star.style.width = star.style.height = Math.random() * 2 + 1 + "px";
-          starsContainer.appendChild(star);
+          fragment.appendChild(star);
         }
+        starsContainer.appendChild(fragment);
       }
 
-      // 💫 Create Fireflies
+      // 💫 Create Fireflies (Optimized for mobile)
       function createFireflies() {
-        const count = 8;
-        for (let i = 0; i < count; i++) {
-          setTimeout(() => {
-            const firefly = document.createElement("div");
-            firefly.className = "firefly";
-            firefly.style.left = Math.random() * 100 + "%";
-            firefly.style.top = Math.random() * 100 + "%";
-            firefly.style.setProperty(
-              "--tx",
-              (Math.random() - 0.5) * 100 + "px",
-            );
-            firefly.style.setProperty(
-              "--ty",
-              (Math.random() - 0.5) * 150 + "px",
-            );
-            firefly.style.setProperty(
-              "--fly-duration",
-              Math.random() * 4 + 6 + "s",
-            );
-            firefly.style.setProperty("--fly-delay", Math.random() * 3 + "s");
-            firefliesContainer.appendChild(firefly);
+        const count = isMobile ? 4 : 8;
+        const fragment = document.createDocumentFragment();
 
-            // Remove & recreate for continuous effect
-            setTimeout(() => firefly.remove(), 15000);
-          }, i * 800);
+        for (let i = 0; i < count; i++) {
+          const firefly = document.createElement("div");
+          firefly.className = "firefly";
+          firefly.style.left = Math.random() * 100 + "%";
+          firefly.style.top = Math.random() * 100 + "%";
+          firefly.style.setProperty("--tx", (Math.random() - 0.5) * 100 + "px");
+          firefly.style.setProperty("--ty", (Math.random() - 0.5) * 150 + "px");
+          firefly.style.setProperty(
+            "--fly-duration",
+            Math.random() * 4 + 6 + "s",
+          );
+          firefly.style.setProperty("--fly-delay", Math.random() * 3 + "s");
+          fragment.appendChild(firefly);
+
+          setTimeout(() => firefly.remove(), 15000);
         }
-        // Loop fireflies
-        setInterval(createFireflies, 8000);
+        firefliesContainer.appendChild(fragment);
       }
+
+      // Loop fireflies with reduced frequency on mobile
+      const fireflyInterval = isMobile ? 12000 : 8000;
+      setInterval(createFireflies, fireflyInterval);
+      createFireflies(); // Initial call
 
       // 💕 Heart Rain Effect
       function sendHeart() {
         heartsSent++;
-        createHeartRain(15);
+        createHeartRain(isMobile ? 10 : 15);
 
-        // Show cute message
         const messages = [
           "Peluk virtual terkirim! 🤗💕",
           "Semoga kamu merasakannya... 🥰",
@@ -846,14 +1017,18 @@
           top: 20%;
           left: 50%;
           transform: translateX(-50%);
-          background: rgba(255,107,157,0.9);
+          background: rgba(255,107,157,0.95);
           color: white;
-          padding: 12px 25px;
+          padding: 12px 20px;
           border-radius: 50px;
           font-weight: 600;
+          font-size: ${isMobile ? "0.9rem" : "1rem"};
           z-index: 300;
           animation: msgFloat 3s ease forwards;
           box-shadow: 0 5px 20px rgba(255,107,157,0.5);
+          max-width: 90%;
+          text-align: center;
+          pointer-events: none;
         `;
         msg.textContent =
           messages[Math.min(heartsSent - 1, messages.length - 1)];
@@ -863,18 +1038,21 @@
 
       function createHeartRain(count) {
         for (let i = 0; i < count; i++) {
-          setTimeout(() => {
-            const heart = document.createElement("div");
-            heart.className = "heart";
-            heart.innerHTML = ["💕", "💖", "💗", "💓", "💞"][
-              Math.floor(Math.random() * 5)
-            ];
-            heart.style.left = Math.random() * 100 + "vw";
-            heart.style.animationDuration = Math.random() * 2 + 3 + "s";
-            heart.style.animationDelay = Math.random() * 0.5 + "s";
-            document.body.appendChild(heart);
-            setTimeout(() => heart.remove(), 5000);
-          }, i * 100);
+          setTimeout(
+            () => {
+              const heart = document.createElement("div");
+              heart.className = "heart";
+              heart.innerHTML = ["💕", "💖", "💗", "💓", "💞"][
+                Math.floor(Math.random() * 5)
+              ];
+              heart.style.left = Math.random() * 100 + "vw";
+              heart.style.animationDuration = Math.random() * 2 + 3 + "s";
+              heart.style.animationDelay = Math.random() * 0.5 + "s";
+              document.body.appendChild(heart);
+              setTimeout(() => heart.remove(), 5000);
+            },
+            i * (isMobile ? 150 : 100),
+          );
         }
       }
 
@@ -893,33 +1071,86 @@
       // 🌟 Show Wishes Modal
       function showWishes() {
         wishesModal.classList.add("active");
-        // Little confetti effect
-        for (let i = 0; i < 20; i++) {
+        document.body.style.overflow = "hidden"; // Prevent background scroll
+        // Little confetti effect (reduced on mobile)
+        const confettiCount = isMobile ? 12 : 20;
+        for (let i = 0; i < confettiCount; i++) {
           setTimeout(() => createConfetti(), i * 50);
         }
       }
 
       function closeWishes() {
         wishesModal.classList.remove("active");
+        document.body.style.overflow = "";
       }
+
+      // Close modal when clicking outside
+      [nameModal, wishesModal].forEach((modal) => {
+        modal.addEventListener("click", (e) => {
+          if (e.target === modal) {
+            modal.classList.remove("active");
+            document.body.style.overflow = "";
+          }
+        });
+      });
 
       // 🎵 Music Toggle
       function toggleMusic() {
         if (isPlaying) {
           music.pause();
           musicBtn.innerHTML = '<i class="fas fa-music"></i>';
+          musicBtn.setAttribute("aria-label", "Putar musik");
         } else {
-          music.volume = 0.4; // Soft volume for night
-          music.play().catch(() => {});
+          music.volume = 0.4;
+          music.play().catch((e) => {
+            console.log("Autoplay prevented:", e);
+            // Show hint to user
+            showToast("🎵 Klik tombol lagi untuk putar musik");
+          });
           musicBtn.innerHTML = '<i class="fas fa-pause"></i>';
+          musicBtn.setAttribute("aria-label", "Jeda musik");
         }
         isPlaying = !isPlaying;
+      }
+
+      // Simple toast notification
+      function showToast(message) {
+        const toast = document.createElement("div");
+        toast.style.cssText = `
+          position: fixed;
+          bottom: 20px;
+          left: 50%;
+          transform: translateX(-50%);
+          background: rgba(255,255,255,0.95);
+          color: #333;
+          padding: 10px 20px;
+          border-radius: 50px;
+          font-size: 0.9rem;
+          z-index: 500;
+          box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+          animation: toastSlide 3s ease forwards;
+        `;
+        toast.textContent = message;
+        document.body.appendChild(toast);
+
+        const toastStyle = document.createElement("style");
+        toastStyle.textContent = `
+          @keyframes toastSlide {
+            0%, 100% { opacity: 0; transform: translateX(-50%) translateY(20px); }
+            10%, 90% { opacity: 1; transform: translateX(-50%) translateY(0); }
+          }
+        `;
+        document.head.appendChild(toastStyle);
+
+        setTimeout(() => toast.remove(), 3000);
       }
 
       // 💕 Name Modal
       function openNameModal() {
         nameModal.classList.add("active");
-        // Try to play soft music on interaction
+        document.body.style.overflow = "hidden";
+        document.getElementById("partnerName").focus();
+
         if (!isPlaying) {
           music.volume = 0.3;
           music.play().catch(() => {});
@@ -933,11 +1164,9 @@
         const name = input.value.trim();
         if (name) partnerName = name;
 
-        // Update greeting
         document.getElementById("greetingTitle").innerHTML =
           `Selamat Malam, ${partnerName} 🌙`;
 
-        // Update message with personal touch
         document.getElementById("messageContent").innerHTML = `
           <p>
             Hari ini mungkin sudah berakhir,<br />
@@ -954,12 +1183,12 @@
         `;
 
         nameModal.classList.remove("active");
+        document.body.style.overflow = "";
 
-        // Celebrate with hearts
-        setTimeout(() => createHeartRain(25), 300);
+        setTimeout(() => createHeartRain(isMobile ? 15 : 25), 300);
       }
 
-      // ✨ Confetti for wishes
+      // ✨ Confetti for wishes (mobile optimized)
       function createConfetti() {
         const confetti = document.createElement("div");
         confetti.style.cssText = `
@@ -973,12 +1202,12 @@
           animation: fall ${Math.random() * 2 + 2}s linear forwards;
           z-index: 50;
           opacity: 0.9;
+          pointer-events: none;
         `;
         document.body.appendChild(confetti);
         setTimeout(() => confetti.remove(), 4000);
       }
 
-      // Add fall animation
       const fallStyle = document.createElement("style");
       fallStyle.textContent = `
         @keyframes fall {
@@ -997,27 +1226,40 @@
           setTimeout(() => {
             loader.remove();
             createStars();
-            createFireflies();
-            // Show name modal after short delay
+            // Fireflies already started above
             setTimeout(openNameModal, 800);
           }, 600);
         }, 1200);
       });
 
-      // 🌙 Gentle scroll hint (optional)
-      document.addEventListener(
-        "touchmove",
-        (e) => {
-          // Prevent pull-to-refresh on mobile for better experience
-          if (window.scrollY <= 0) e.preventDefault();
-        },
-        { passive: false },
-      );
+      // 📱 Handle keyboard on input (prevent zoom on iOS)
+      document
+        .getElementById("partnerName")
+        ?.addEventListener("focus", function () {
+          if (isMobile) {
+            setTimeout(() => window.scrollTo(0, 0), 100);
+          }
+        });
 
-      // 💤 Auto heart rain occasionally
+      // 💤 Auto heart rain occasionally (less frequent on mobile)
+      const heartInterval = isMobile ? 15000 : 8000;
       setInterval(() => {
-        if (Math.random() > 0.7) createHeartRain(5);
-      }, 8000);
+        if (Math.random() > 0.75) createHeartRain(isMobile ? 3 : 5);
+      }, heartInterval);
+
+      // 🔋 Performance: Reduce animations when tab is not visible
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden) {
+          // Pause heavy animations
+          document.querySelectorAll(".firefly, .heart").forEach((el) => {
+            el.style.animationPlayState = "paused";
+          });
+        } else {
+          document.querySelectorAll(".firefly, .heart").forEach((el) => {
+            el.style.animationPlayState = "running";
+          });
+        }
+      });
     </script>
   </body>
 </html>
